@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    strategy:
+      matrix:
+        runner: [ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache .build
+        uses: actions/cache@v4
+        with:
+          path: .build
+          key: ${{ runner.os }}-${{ runner.arch }}-build-${{ hashFiles('Package.swift', 'Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-build-
+
+      - name: Build dev image
+        run: docker build -t sideload-dev -f Tools/docker/Dockerfile .
+
+      - name: swift build
+        run: docker run --rm -v "$PWD":/work -w /work sideload-dev swift build
+
+      - name: swift test
+        run: docker run --rm -v "$PWD":/work -w /work sideload-dev swift test
+
+      - name: end-to-end
+        run: docker run --rm -v "$PWD":/work -w /work sideload-dev bash -c "apt-get update -qq && Tools/e2e.sh"

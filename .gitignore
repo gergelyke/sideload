@@ -1,0 +1,7 @@
+.build/
+.swiftpm/
+*.o
+.DS_Store
+.sideload/
+hello.png
+/tmp/
