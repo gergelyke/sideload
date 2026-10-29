@@ -1,0 +1,8 @@
+{
+    "id": "phone-4.7-se",
+    "displayName": "4.7\" home-button iPhone",
+    "widthPoints": 375,
+    "heightPoints": 667,
+    "scale": 2,
+    "safeAreaInsets": { "top": 20, "leading": 0, "bottom": 0, "trailing": 0 }
+}

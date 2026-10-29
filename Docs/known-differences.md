@@ -8,3 +8,4 @@ the value we chose and why.
 |---|---|---|---|
 | Body text font | Inter (variable font, `wght` axis) | SF Pro is licensed for Apple platforms only; Inter is metrically similar and open (SIL OFL) | No |
 | SF Symbols | Mapped subset of Lucide icons (`Resources/Symbols/sf-map.json`); unmapped names draw a labelled placeholder box | SF Symbols artwork is licensed for Apple platforms only | No |
+| Device profile geometry (`phone-6.1`, `phone-6.1-island`, `phone-6.7-island`, `phone-4.7-se`) | Point size, scale and safe-area insets in `Resources/DeviceProfiles/*.json`, taken from published iPhone specs | No corner radius or Dynamic Island cutout modeled yet; numbers should be cross-checked against Apple's Human Interface Guidelines | No |
