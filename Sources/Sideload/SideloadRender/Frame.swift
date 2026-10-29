@@ -47,6 +47,41 @@ public struct Frame: Sendable {
         return (Int(cairo_image_surface_get_width(surface)), Int(cairo_image_surface_get_height(surface)))
     }
 
+    /// Reads a PNG file written by `writePNG` back into a `Frame` so
+    /// tests can inspect its pixels with `pixel(x:y:)`. The PNG itself
+    /// carries no scale factor, so the caller supplies the one it wrote
+    /// with.
+    public static func readPNG(at path: String, scale: Double) throws -> Frame {
+        guard let pngSurface = cairo_image_surface_create_from_png(path) else {
+            throw FrameError.surfaceCreationFailed
+        }
+        defer { cairo_surface_destroy(pngSurface) }
+        guard cairo_surface_status(pngSurface) == CAIRO_STATUS_SUCCESS else {
+            throw FrameError.writeFailed(String(cString: cairo_status_to_string(cairo_surface_status(pngSurface))))
+        }
+
+        let width = Int(cairo_image_surface_get_width(pngSurface))
+        let height = Int(cairo_image_surface_get_height(pngSurface))
+        var frame = Frame(pixelWidth: width, pixelHeight: height, scale: scale)
+
+        // Re-stamp the decoded PNG onto our own buffer via cairo_paint so
+        // the pixel layout matches our ARGB32 buffer exactly, regardless
+        // of what format the PNG decoded to internally.
+        try frame.buffer.withUnsafeMutableBufferPointer { ptr in
+            guard let ourSurface = cairo_image_surface_create_for_data(
+                ptr.baseAddress, CAIRO_FORMAT_ARGB32, Int32(width), Int32(height), Int32(frame.stride)
+            ) else {
+                throw FrameError.surfaceCreationFailed
+            }
+            defer { cairo_surface_destroy(ourSurface) }
+            guard let cr = cairo_create(ourSurface) else { throw FrameError.surfaceCreationFailed }
+            defer { cairo_destroy(cr) }
+            cairo_set_source_surface(cr, pngSurface, 0, 0)
+            cairo_paint(cr)
+        }
+        return frame
+    }
+
     public func writePNG(to path: String) throws {
         var mutableBuffer = buffer
         let status: cairo_status_t = try mutableBuffer.withUnsafeMutableBufferPointer { ptr in

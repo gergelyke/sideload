@@ -15,12 +15,7 @@ extension App {
     public static func main() {
         let app = Self()
         let host = AppSceneHost(app: app)
-        do {
-            try SideloadRuntime.run(host: host, options: LaunchOptions.fromEnvironment())
-        } catch {
-            FileHandle.standardError.write(Data("sideload: \(error)\n".utf8))
-            exit(1)
-        }
+        run(host: host, options: LaunchOptions.fromEnvironment())
     }
 }
 

@@ -13,11 +13,14 @@ public enum RuntimeError: Error, Sendable, CustomStringConvertible {
     }
 }
 
-/// Loads the requested device profile and resources, builds one
-/// `RenderBackend` for the process's lifetime, and hands frames to either
-/// a `PNGSink` (headless) or an `SDLWindowSink` (windowed).
+/// The process-exit-free core of `run(host:options:)`, so tests can drive
+/// it without the process exiting out from under the test runner.
 @MainActor
-public func run(host: some SceneHost, options: LaunchOptions) throws {
+func _runCore(host: some SceneHost, options: LaunchOptions) throws {
+    if options.headless, options.screenshotPath == nil {
+        throw RuntimeError.missingScreenshotPath
+    }
+
     let profile = try DeviceProfile.load(id: options.device, resourcesDirectory: options.resourcesDirectory)
     let fontLibrary = try FontLibrary(resourcesDirectory: options.resourcesDirectory)
     let symbolLibrary = try SymbolLibrary(resourcesDirectory: options.resourcesDirectory)
@@ -39,10 +42,7 @@ public func run(host: some SceneHost, options: LaunchOptions) throws {
     }
 
     if options.headless {
-        guard let screenshotPath = options.screenshotPath else {
-            throw RuntimeError.missingScreenshotPath
-        }
-        let sink = PNGSink(path: screenshotPath, pixelWidth: profile.pixelWidth, pixelHeight: profile.pixelHeight, scale: profile.scale)
+        let sink = PNGSink(path: options.screenshotPath!, pixelWidth: profile.pixelWidth, pixelHeight: profile.pixelHeight, scale: profile.scale)
         try sink.run(produceFrame)
     } else {
         let sink = SDLWindowSink(
@@ -52,5 +52,26 @@ public func run(host: some SceneHost, options: LaunchOptions) throws {
             scale: profile.scale
         )
         try sink.run(produceFrame)
+    }
+}
+
+/// Loads the requested device profile and resources, builds one
+/// `RenderBackend` for the process's lifetime, and hands frames to either
+/// a `PNGSink` (headless) or an `SDLWindowSink` (windowed). Never returns:
+/// it exits the process itself, so `App.main()` can call it as its last
+/// act. `--headless` without `--screenshot` exits 64 (matching the BSD
+/// `EX_USAGE` convention other Unix CLIs use for bad arguments); any
+/// other failure prints `sideload: <message>` to stderr and exits 1.
+@MainActor
+public func run(host: some SceneHost, options: LaunchOptions) -> Never {
+    do {
+        try _runCore(host: host, options: options)
+        exit(0)
+    } catch RuntimeError.missingScreenshotPath {
+        FileHandle.standardError.write(Data("sideload: \(RuntimeError.missingScreenshotPath)\n".utf8))
+        exit(64)
+    } catch {
+        FileHandle.standardError.write(Data("sideload: \(error)\n".utf8))
+        exit(1)
     }
 }
