@@ -116,7 +116,7 @@ let package = Package(
         .testTarget(
             name: "SideloadBuildTests",
             dependencies: ["SideloadBuild"],
-            resources: [.copy("Fixtures")]
+            exclude: ["Fixtures"]
         ),
         .testTarget(
             name: "SwiftUITests",

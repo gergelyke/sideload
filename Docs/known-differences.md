@@ -15,3 +15,5 @@ the value we chose and why.
 | `Image.Scale` multiplier vs. font point size | small 0.8×, medium 1.0×, large 1.3× | No public formula; chosen to look proportionate at `.body` size | No |
 | `VStack`/`HStack` alignment | Always centers on the cross axis; the `alignment:` parameter is accepted but not yet honored | MVP scope — only the fixture's centered layout is needed | No |
 | Text layout | Single line, no wrapping, no Dynamic Type scaling | MVP scope | No |
+| `sideload build`/`run` exit codes | `--headless` without `--screenshot`: 64; any other failure: 1; success: 0 | Follows the BSD `EX_USAGE` convention other Unix CLIs use for bad arguments | No |
+| Diagnostics from a generated package point at the original file | Rewritten line-by-line from `source-map.json`, a plain substring replace | Good enough while a generated target has one source directory with no name collisions across files | No |
