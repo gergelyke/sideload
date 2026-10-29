@@ -31,4 +31,4 @@ jobs:
         run: docker run --rm -v "$PWD":/work -w /work sideload-dev swift test
 
       - name: end-to-end
-        run: docker run --rm -v "$PWD":/work -w /work sideload-dev bash -c "apt-get update -qq && Tools/e2e.sh"
+        run: docker run --rm -v "$PWD":/work -w /work sideload-dev Tools/e2e.sh

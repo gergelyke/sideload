@@ -131,7 +131,7 @@ let package = Package(
         ),
         .testTarget(
             name: "EndToEndTests",
-            dependencies: ["SwiftUI"]
+            dependencies: ["SideloadRender", "SideloadRuntime"]
         ),
     ]
 )
