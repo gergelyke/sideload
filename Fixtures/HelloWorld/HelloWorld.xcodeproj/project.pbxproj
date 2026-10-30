@@ -1,0 +1,62 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	objectVersion = 77;
+	objects = {
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			targets = (
+				29B97314FDCFA39411CA2CEA /* HelloWorld */,
+			);
+		};
+		29B97314FDCFA39411CA2CEA /* HelloWorld */ = {
+			isa = PBXNativeTarget;
+			name = HelloWorld;
+			productType = "com.apple.product-type.application";
+			buildConfigurationList = 1DEB927908733DD80010E9CD;
+			buildPhases = (
+				1AB674ADFE9D54B511CA2CBB /* Sources */,
+			);
+			fileSystemSynchronizedGroups = (
+				08FB7794FE84155DC02AAC07 /* HelloWorld */,
+			);
+		};
+		08FB7794FE84155DC02AAC07 /* HelloWorld */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = HelloWorld;
+			sourceTree = "<group>";
+		};
+		1AB674ADFE9D54B511CA2CBB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+		1DEB927908733DD80010E9CD = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB927A08733DD80010E9CD /* Debug */,
+				1DEB927B08733DD80010E9CD /* Release */,
+			);
+			defaultConfigurationName = Release;
+		};
+		1DEB927A08733DD80010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			name = Debug;
+			buildSettings = {
+				SWIFT_VERSION = 5.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_KEY_CFBundleDisplayName = HelloWorld;
+			};
+		};
+		1DEB927B08733DD80010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			name = Release;
+			buildSettings = {
+				SWIFT_VERSION = 5.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_KEY_CFBundleDisplayName = HelloWorld;
+			};
+		};
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA;
+}

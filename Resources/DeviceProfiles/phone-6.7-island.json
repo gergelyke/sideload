@@ -1,0 +1,8 @@
+{
+    "id": "phone-6.7-island",
+    "displayName": "6.7\" Dynamic Island iPhone",
+    "widthPoints": 430,
+    "heightPoints": 932,
+    "scale": 3,
+    "safeAreaInsets": { "top": 59, "leading": 0, "bottom": 34, "trailing": 0 }
+}

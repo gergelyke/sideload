@@ -1,0 +1,72 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	objectVersion = 77;
+	objects = {
+		PROJ000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			targets = (
+				TGT000000000000000000001 /* HelloWorld */,
+			);
+		};
+		TGT000000000000000000001 /* HelloWorld */ = {
+			isa = PBXNativeTarget;
+			name = HelloWorld;
+			productType = "com.apple.product-type.application";
+			buildConfigurationList = CFL000000000000000000001;
+			buildPhases = (
+				SRC000000000000000000001 /* Sources */,
+			);
+			fileSystemSynchronizedGroups = (
+				SYN000000000000000000001 /* HelloWorld */,
+			);
+		};
+		SYN000000000000000000001 /* HelloWorld */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = HelloWorld;
+			sourceTree = "<group>";
+			exceptions = (
+				EXC000000000000000000001 /* Exceptions for "HelloWorld" folder */,
+			);
+		};
+		EXC000000000000000000001 /* Exceptions for "HelloWorld" folder */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			target = TGT000000000000000000001;
+			membershipExceptions = (
+				NotesIgnoreMe.txt,
+			);
+		};
+		SRC000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+		CFL000000000000000000001 = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFG000000000000000000001 /* Debug */,
+				CFG000000000000000000002 /* Release */,
+			);
+			defaultConfigurationName = Release;
+		};
+		CFG000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			name = Debug;
+			buildSettings = {
+				SWIFT_VERSION = 5.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_KEY_CFBundleDisplayName = "Hello World";
+			};
+		};
+		CFG000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			name = Release;
+			buildSettings = {
+				SWIFT_VERSION = 5.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_KEY_CFBundleDisplayName = "Hello World";
+			};
+		};
+	};
+	rootObject = PROJ000000000000000000001;
+}

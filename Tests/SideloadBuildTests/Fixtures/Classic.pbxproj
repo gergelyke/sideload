@@ -1,0 +1,83 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	objectVersion = 56;
+	objects = {
+		PROJ100000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			mainGroup = GRP100000000000000000001;
+			targets = (
+				TGT100000000000000000001 /* HelloWorldClassic */,
+			);
+		};
+		TGT100000000000000000001 /* HelloWorldClassic */ = {
+			isa = PBXNativeTarget;
+			name = HelloWorldClassic;
+			productType = "com.apple.product-type.application";
+			buildConfigurationList = CFL100000000000000000001;
+			buildPhases = (
+				SRC100000000000000000001 /* Sources */,
+			);
+		};
+		GRP100000000000000000001 /* Main */ = {
+			isa = PBXGroup;
+			sourceTree = "<group>";
+			children = (
+				FIL100000000000000000001 /* AppFile.swift */,
+				GRP100000000000000000002 /* Sub */,
+			);
+		};
+		GRP100000000000000000002 /* Sub */ = {
+			isa = PBXGroup;
+			path = Sub;
+			sourceTree = "<group>";
+			children = (
+				FIL100000000000000000002 /* SubView.swift */,
+			);
+		};
+		FIL100000000000000000001 /* AppFile.swift */ = {
+			isa = PBXFileReference;
+			path = AppFile.swift;
+			sourceTree = "<group>";
+			lastKnownFileType = sourcecode.swift;
+		};
+		FIL100000000000000000002 /* SubView.swift */ = {
+			isa = PBXFileReference;
+			path = SubView.swift;
+			sourceTree = "<group>";
+			lastKnownFileType = sourcecode.swift;
+		};
+		BLD100000000000000000001 /* AppFile.swift in Sources */ = {
+			isa = PBXBuildFile;
+			fileRef = FIL100000000000000000001;
+		};
+		BLD100000000000000000002 /* SubView.swift in Sources */ = {
+			isa = PBXBuildFile;
+			fileRef = FIL100000000000000000002;
+		};
+		SRC100000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				BLD100000000000000000001 /* AppFile.swift in Sources */,
+				BLD100000000000000000002 /* SubView.swift in Sources */,
+			);
+		};
+		CFL100000000000000000001 = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFG100000000000000000001 /* Debug */,
+			);
+			defaultConfigurationName = Debug;
+		};
+		CFG100000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			name = Debug;
+			buildSettings = {
+				SWIFT_VERSION = 5.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_KEY_CFBundleDisplayName = "Hello Classic";
+			};
+		};
+	};
+	rootObject = PROJ100000000000000000001;
+}

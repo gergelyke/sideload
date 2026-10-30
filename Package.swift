@@ -57,7 +57,7 @@ let package = Package(
         ),
         .target(
             name: "SideloadRuntime",
-            dependencies: ["SideloadShell"],
+            dependencies: ["SideloadShell", "SideloadRender"],
             path: "Sources/Sideload/SideloadRuntime",
             swiftSettings: [.swiftLanguageMode(.v6)]
         ),
@@ -83,7 +83,7 @@ let package = Package(
         ),
         .target(
             name: "SwiftUI",
-            dependencies: ["SideloadRuntime", "SwiftUIMacros"],
+            dependencies: ["SideloadRuntime", "SideloadRender", "SideloadShell", "SwiftUIMacros"],
             path: "Sources/SDK/SwiftUI",
             swiftSettings: [.swiftLanguageMode(.v6)]
         ),
@@ -116,11 +116,11 @@ let package = Package(
         .testTarget(
             name: "SideloadBuildTests",
             dependencies: ["SideloadBuild"],
-            resources: [.copy("Fixtures")]
+            exclude: ["Fixtures"]
         ),
         .testTarget(
             name: "SwiftUITests",
-            dependencies: ["SwiftUI"]
+            dependencies: ["SwiftUI", "SideloadRender", "SideloadRuntime"]
         ),
         .testTarget(
             name: "SwiftUIMacrosTests",
@@ -131,7 +131,7 @@ let package = Package(
         ),
         .testTarget(
             name: "EndToEndTests",
-            dependencies: ["SwiftUI"]
+            dependencies: ["SideloadRender", "SideloadRuntime"]
         ),
     ]
 )
